@@ -196,7 +196,7 @@ Si alguien te roba o lee tu archivo de configuración, no se lleva ninguna llave
 
 ### Instrucción para el agente
 
-> "Realiza una petición a https://learn.4geeks.com/v1/admissions/user/me/ enviando el encabezado Authorization: Token $FOURGEEKS_TOKEN. Extrae únicamente mi nombre del JSON recibido y respóndeme solo con esa información. Nunca muestres ni imprimas el token."
+> "Realiza una petición a breathecode.herokuapp.com/v1/admissions/user/me/ enviando el encabezado Authorization: Token $FOURGEEKS_TOKEN enviando el encabezado Authorization: Token $FOURGEEKS_TOKEN. Extrae únicamente mi nombre del JSON recibido y respóndeme solo con esa información. Nunca muestres ni imprimas el token."
 
 ## Si una llave se expone: qué hacer
 
