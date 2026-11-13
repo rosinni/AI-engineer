@@ -4,14 +4,14 @@
 
 > **Qué vas a lograr en este módulo**
 > - Leer y escribir objetos en TypeScript como los que viajan hacia y desde un LLM.
-> - Definir contratos de datos (`interface` / `type`) para que una respuesta inesperada del modelo no rompa tu app.
+> - Definir contratos de datos (`interface` / `type`) para que una respuesta inesperada del modelo no rompa la aplicación.
 > - Manejar colecciones: historiales de chat, registros de tokens y catálogos de herramientas.
 > - Planificar un sistema de IA con un diagrama de clases y construir sus piezas con `class`.
 
 
 ## El mapa general: por qué los objetos son el idioma de la IA
 
-Antes de escribir una línea de código, quedate con esta imagen. Cada vez que tu aplicación conversa con un modelo de lenguaje, pasa lo mismo:
+Antes de escribir una línea de código, mantén esta imagen en mente. Cada vez que la aplicación conversa con un modelo de lenguaje, ocurre lo mismo:
 
 ```mermaid
 flowchart LR
@@ -19,16 +19,16 @@ flowchart LR
     B -->|"objeto: response"| A
 ```
 
-Lo que viaja en ambas direcciones son **objetos**: estructuras con nombre y valor (JSON). El mensaje que mandás, la configuración del modelo, la respuesta, las herramientas que el agente puede usar, el historial de la charla: todo son objetos organizados en listas y diccionarios.
+Lo que viaja en ambas direcciones son **objetos**: estructuras con nombre y valor (JSON). El mensaje que se envía, la configuración del modelo, la respuesta, las herramientas que el agente puede usar y el historial de la conversación: todo son objetos organizados en listas y diccionarios.
 
-> **Idea clave:** trabajar con IA es, en gran parte, **construir bien los objetos que le mandás al modelo y validar bien los objetos que te devuelve**.
+> **Idea clave:** trabajar con IA consiste, en gran parte, en **construir bien los objetos que se envían al modelo y validar bien los objetos que devuelve**.
 
 
 ## De la idea a los datos: el objeto literal
 
 ### Un mensaje de chat es un objeto
 
-Cuando le escribís a un asistente, lo que la API recibe no es "texto suelto". Cada mensaje es un objeto con dos propiedades:
+Cuando se escribe a un asistente, lo que recibe la API no es "texto suelto". Cada mensaje es un objeto con dos propiedades:
 
 ```typescript
 const message = {
@@ -37,7 +37,7 @@ const message = {
 };
 ```
 
-- `role` dice **quién habla** (`"system"`, `"user"` o `"assistant"`).
+- `role` indica **quién habla** (`"system"`, `"user"` o `"assistant"`).
 - `content` es **lo que dice**.
 
 Una **propiedad** es un par *nombre → valor*. Un objeto es un conjunto de propiedades que describen una misma cosa. Eso es todo.
@@ -60,7 +60,7 @@ Hay dos notaciones:
 
 ### Objetos dentro de objetos
 
-Una petición real a un LLM combina varias cosas. Fijate cómo un objeto contiene valores simples, una lista y hasta otros objetos:
+Una petición real a un LLM combina varias cosas. Observe cómo un objeto contiene valores simples, una lista y hasta otros objetos:
 
 ```typescript
 const request = {
@@ -77,7 +77,7 @@ console.log(request.messages[1].content);
 // "¿Para qué sirve la temperatura en un modelo?"
 ```
 
-Para llegar a un dato "profundo" encadenás accesos: `request.messages[1].content`. Leelo de izquierda a derecha como un camino: *request → messages → segundo elemento → content*.
+Para llegar a un dato "profundo", se encadenan accesos: `request.messages[1].content`. Se lee de izquierda a derecha como un camino: *request → messages → segundo elemento → content*.
 
 ### Objetos que también hacen cosas
 
@@ -94,7 +94,7 @@ console.log(getTime.description); // dato
 console.log(getTime.execute());   // comportamiento
 ```
 
-Fijate: el mismo objeto tiene **datos** (`name`, `description`) y **comportamiento** (`execute`). Esa combinación es la razón de ser de la programación orientada a objetos, y ya la estás usando sin haber escrito ninguna `class`.
+Observe que el mismo objeto tiene **datos** (`name`, `description`) y **comportamiento** (`execute`). Esa combinación es la razón de ser de la programación orientada a objetos, y ya se está usando sin escribir ninguna `class`.
 
 
 
@@ -102,15 +102,15 @@ Fijate: el mismo objeto tiene **datos** (`name`, `description`) y **comportamien
 
 ### El problema: el LLM es impredecible
 
-Imaginá que le pedís a un modelo que clasifique el sentimiento de una reseña y que responda en JSON. Lo que *esperás* recibir:
+Imagine que se solicita a un modelo que clasifique el sentimiento de una reseña y que responda en JSON. Lo que *se espera* recibir:
 
 ```json
 { "sentiment": "positive", "confidence": 0.93, "keywords": ["rápido", "excelente"] }
 ```
 
-Pero un modelo puede, de vez en cuando, devolver `"sentimiento"` en vez de `"sentiment"`, un `confidence` como texto (`"alta"`), o directamente omitir una propiedad. Si tu código asume que todo viene perfecto, **se rompe en producción**.
+Pero un modelo puede, en ocasiones, devolver `"sentimiento"` en lugar de `"sentiment"`, un `confidence` como texto (`"alta"`) o, directamente, omitir una propiedad. Si el código asume que todo llega perfecto, **se rompe en producción**.
 
-Necesitás un **contrato**: una descripción exacta de la forma que *debe* tener el dato. En TypeScript, ese contrato se escribe con `interface` o `type`.
+Se necesita un **contrato**: una descripción exacta de la forma que *debe* tener el dato. En TypeScript, ese contrato se escribe con `interface` o `type`.
 
 ### Escribir el contrato
 
@@ -123,13 +123,13 @@ interface SentimentResult {
 }
 ```
 
-Algunas piezas para destacar:
+Algunas partes a destacar:
 
 - `"positive" | "neutral" | "negative"` es un **tipo unión de literales**: el valor solo puede ser uno de esos tres textos. Es ideal para etiquetas de clasificación.
 - `string[]` significa "lista de textos".
 - `summary?` es opcional: puede estar o no.
 
-Ahora el editor te protege:
+Ahora el editor protege el código:
 
 ```typescript
 const result: SentimentResult = {
@@ -165,13 +165,13 @@ interface ChatRequest {
 
 Con esto, escribir `role: "usuario"` es un error **antes de ejecutar** el programa.
 
-> **`interface` o `type`:** para describir la forma de un objeto, ambos funcionan y para empezar son prácticamente intercambiables. Usá `interface` para objetos y `type` para uniones como `Role`. Esa regla alcanza por ahora.
+> **`interface` o `type`:** para describir la forma de un objeto, ambos funcionan y, para empezar, son prácticamente intercambiables. Se recomienda usar `interface` para objetos y `type` para uniones como `Role`. Esa regla alcanza por ahora.
 
 ## Colecciones de datos en IA: arrays y diccionarios
 
 ### El historial de conversación: `ChatMessage[]`
 
-Un modelo no "recuerda" nada entre llamadas. Para que tenga contexto, **vos le reenviás todo el historial** cada vez. Y ese historial es, simplemente, un array de objetos:
+Un modelo no "recuerda" nada entre llamadas. Para que tenga contexto, **se reenvía todo el historial** en cada solicitud. Ese historial es, simplemente, un array de objetos:
 
 ```typescript
 const history: ChatMessage[] = [
@@ -185,9 +185,9 @@ const history: ChatMessage[] = [
 history.push({ role: "assistant", content: "Es una lista donde cada elemento es un objeto." });
 ```
 
-### Operaciones que vas a usar todo el tiempo
+### Operaciones que se usan todo el tiempo
 
-**`filter`: quedarte con los que cumplen una condición.** Por ejemplo, ver solo lo que dijo el usuario:
+**`filter`: quedarse con los elementos que cumplen una condición.** Por ejemplo, ver solo lo que dijo el usuario:
 
 ```typescript
 const userMessages = history.filter((m) => m.role === "user");
@@ -199,7 +199,7 @@ const userMessages = history.filter((m) => m.role === "user");
 const transcript = history.map((m) => `${m.role}: ${m.content}`).join("\n");
 ```
 
-**`find`: buscar el primero que cumpla.**
+**`find`: buscar el primero que cumpla una condición.**
 
 ```typescript
 const firstUserQuestion = history.find((m) => m.role === "user");
@@ -207,7 +207,7 @@ const firstUserQuestion = history.find((m) => m.role === "user");
 
 ### Diccionarios: encontrar rápido por nombre
 
-Cuando un agente tiene varias herramientas y el modelo te dice "quiero usar `getTime`", necesitás **encontrarla por su nombre al instante**. Recorrer una lista cada vez es incómodo; para eso sirve un diccionario, que en TypeScript se tipa como `Record<clave, valor>`:
+Cuando un agente tiene varias herramientas y el modelo indica que se quiere usar `getTime`, es necesario **encontrarla por su nombre al instante**. Recorrer una lista cada vez es incómodo; para eso sirve un diccionario, que en TypeScript se tipa como `Record<clave, valor>`:
 
 ```typescript
 interface Tool {
@@ -238,12 +238,12 @@ if (tool) {
 
 El mismo patrón sirve para un catálogo de modelos disponibles (`Record<string, ModelInfo>`) o para plantillas de prompt por nombre.
 
-> **Regla práctica:** ¿necesitás recorrer todo en orden (como un chat)? → **array**. ¿Necesitás encontrar uno por su nombre o identificador (como una tool)? → **diccionario**.
+> **Regla práctica:** ¿se necesita recorrer todo en orden (como un chat)? → **array**. ¿Se necesita encontrar uno por su nombre o identificador (como una tool)? → **diccionario**.
 
 ## Diseñando sistemas de IA: receta de modelado y diagramas de clases
 
 
-Un chatbot con una sola llamada se programa en diez líneas. Un **agente** (que recuerda, usa herramientas y arma prompts) tiene muchas piezas que se relacionan. Si empezás a codificar sin un mapa, te enredás. Los equipos de IA dibujan primero.
+Un chatbot con una sola llamada se programa en diez líneas. Un **agente** (que recuerda, utiliza herramientas y arma prompts) tiene muchas piezas que se relacionan. Si se codifica sin un mapa, se puede terminar enredado. Los equipos de IA dibujan primero.
 
 ### La receta en 5 pasos
 
@@ -251,15 +251,15 @@ Tomemos este enunciado:
 
 > *"Quiero un asistente que reciba mensajes del usuario, recuerde la conversación, arme el prompt a partir de una plantilla, llame a un modelo y pueda usar herramientas."*
 
-1. **Subrayá los sustantivos:** asistente (`Agent`), mensajes (`ChatMessage`), conversación recordada (`Memory`), plantilla (`PromptTemplate`), herramientas (`Tool`). Son candidatos a **piezas del sistema**.
-2. **Subrayá los verbos:** *recibir, recordar, armar, llamar, usar*. Son candidatos a **acciones** (métodos).
-3. **Preguntá qué datos necesita cada pieza:** una plantilla necesita su texto; una herramienta, nombre y descripción; la memoria, una lista de mensajes.
-4. **Descartá lo que no hace falta ahora:** modelar es simplificar. No agregues "por las dudas".
-5. **Conectá las piezas:** ¿quién usa a quién? ¿quién contiene a quién?
+1. **Subrayar los sustantivos:** asistente (`Agent`), mensajes (`ChatMessage`), conversación recordada (`Memory`), plantilla (`PromptTemplate`), herramientas (`Tool`). Son candidatos a **piezas del sistema**.
+2. **Subrayar los verbos:** *recibir, recordar, armar, llamar, usar*. Son candidatos a **acciones** (métodos).
+3. **Preguntar qué datos necesita cada pieza:** una plantilla necesita su texto; una herramienta, nombre y descripción; la memoria, una lista de mensajes.
+4. **Descartar lo que no hace falta ahora:** modelar es simplificar. No se agregan cosas "por si acaso".
+5. **Conectar las piezas:** ¿quién usa a quién? ¿quién contiene a quién?
 
 ### El diagrama de clases
 
-Un diagrama de clases es un mapa visual de esas piezas. Cada caja tiene el nombre arriba, los **datos** en el medio y las **acciones** abajo. Las líneas muestran las relaciones. Lo escribimos en **Mermaid**, un lenguaje de texto que GitHub, Notion y VS Code (con extensión) convierten en dibujo:
+Un diagrama de clases es un mapa visual de esas piezas. Cada caja tiene el nombre arriba, los **datos** en el medio y las **acciones** abajo. Las líneas muestran las relaciones. Se escribe en **Mermaid**, un lenguaje de texto que GitHub, Notion y VS Code (con extensión) convierten en un dibujo:
 
 ```mermaid
 classDiagram
@@ -312,7 +312,7 @@ Los símbolos de visibilidad: `+` público (se puede usar desde afuera) y `-` pr
 
 ### Errores frecuentes al modelar
 
-- **Una pieza que hace todo:** si tu `Agent` arma prompts, valida JSON, guarda logs y llama a tres APIs, son varias piezas.
+- **Una pieza que hace todo:** si el `Agent` arma prompts, valida JSON, guarda logs y llama a tres APIs, son varias piezas.
 - **Modelar de más:** atributos y clases que nadie usa.
 - **Confundir el molde con el objeto:** `Agent` es el diseño; "el agente de soporte" es una instancia concreta.
 
@@ -321,9 +321,9 @@ Los símbolos de visibilidad: `+` público (se puede usar desde afuera) y `-` pr
 
 ### ¿Cuándo aparece la necesidad de una `class`?
 
-Con objetos literales ya podés guardar el historial. Pero mirá lo que pasa cuando querés una memoria que **no crezca sin límite** (los modelos tienen un tope de contexto) y que viva junto a sus propias reglas. Tendrías que repartir por todo el código el array, el límite y la lógica de recorte, con riesgo de olvidarte de aplicarla en algún lado.
+Con objetos literales ya se puede guardar el historial. Pero observe lo que ocurre cuando se quiere una memoria que **no crezca sin límite** (los modelos tienen un tope de contexto) y que viva junto con sus propias reglas. Sería necesario repartir por todo el código el array, el límite y la lógica de recorte, con riesgo de olvidarse de aplicarla en algún momento.
 
-Una **clase** resuelve eso: es un **molde** que junta *datos* (estado) y *acciones* (métodos) en una sola pieza reutilizable. A partir del molde creás las **instancias** con `new`.
+Una **clase** resuelve esto: es un **molde** que reúne *datos* (estado) y *acciones* (métodos) en una sola pieza reutilizable. A partir del molde se crean las **instancias** con `new`.
 
 ### Nuestra primera clase: `MemoryBuffer`
 
@@ -346,12 +346,12 @@ class MemoryBuffer {
 }
 ```
 
-Recién ahora aparecen tres conceptos nuevos, y cada uno tiene un porqué:
+Ahora aparecen tres conceptos nuevos, y cada uno tiene un propósito:
 
 | Concepto | Qué hace | Por qué lo necesitamos acá |
 |---|---|---|
 | `constructor` | Se ejecuta al crear la instancia con `new` | Para recibir el límite (`maxMessages`) |
-| `private` | Oculta el dato: solo la clase puede tocarlo | Para que nadie meta mensajes saltándose el recorte |
+| `private` | Oculta el dato: solo la clase puede tocarlo | Para que nadie agregue mensajes sin respetar el recorte |
 | `this` | "El objeto que está ejecutando este método" | Para acceder al estado de **esta** instancia |
 
 Usarla:
@@ -366,7 +366,7 @@ memory.add({ role: "assistant", content: "Es un fragmento de texto..." });
 console.log(memory.getAll().length); // 3  (el primer mensaje se descartó solo)
 ```
 
-Cada instancia tiene **su propio estado**: si creás otra `MemoryBuffer`, tendrá su propia lista independiente.
+Cada instancia tiene **su propio estado**: si se crea otra `MemoryBuffer`, tendrá su propia lista independiente.
 
 ## Los conceptos, bajados a tierra
 
