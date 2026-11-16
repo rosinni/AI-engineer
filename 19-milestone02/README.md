@@ -6,7 +6,7 @@ El objetivo general de este proyecto es desarrollar la capa de lógica de negoci
 
 Requisito previo obligatorio antes de escribir código.
 
-Abre y lee detenidamente el archivo `company-BRIEFING.md` en tu repositorio para identificar:
+Abre y lee detenidamente el archivo `company-choice.md` en tu repositorio para identificar:
 
 - Entidades del negocio (ej. `Product`, `User`, `Order`).
 - Campos exactos y sus tipos de datos.
