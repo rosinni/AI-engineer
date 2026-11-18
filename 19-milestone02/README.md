@@ -6,7 +6,7 @@ El objetivo general de este proyecto es desarrollar la capa de lógica de negoci
 
 Requisito previo obligatorio antes de escribir código.
 
-Abre y lee detenidamente el archivo `company-BRIEFING.md` en tu repositorio para identificar:
+Abre y lee detenidamente el archivo `company-choice.md` en tu repositorio para identificar:
 
 - Entidades del negocio (ej. `Product`, `User`, `Order`).
 - Campos exactos y sus tipos de datos.
@@ -46,6 +46,24 @@ export interface Product {
   stock: number;
   isActive: boolean;
 }
+```
+
+### Prompt sugerido para la fase 1 y 2
+
+```text
+Actúa como un Lead Data Architect y Mentor Técnico. Lee detenidamente el archivo company-choice.md ubicado en mi proyecto.
+
+RESTRICCIÓN DE ARQUITECTURA (OBLIGATORIO):
+Aunque la plantilla del proyecto sea un monorepo, la evaluación de este hito exige estrictamente que todo el código se construya dentro de la carpeta src/. No uses carpetas como packages/, shared/ ni modifiques archivos fuera de src/.
+
+Con base en el contenido de mi empresa, realiza un análisis y entrega una respuesta estructurada estrictamente de la siguiente manera:
+
+RESUMEN GENERAL: "El modelo de negocio de [Nombre de tu empresa] tiene X entidades principales." (Enumera cuáles son con una breve descripción de una línea para cada una).
+RELACIONES ENTRE ENTIDADES: Explica detalladamente cómo se conectan entre sí (ejemplo: "Un Cliente realiza 1 o varios Pedidos"). Si aplica, incluye un mapa de relaciones simple.
+PROPUESTA DE INTERFACES TYPESCRIPT: Crea el directorio y archivo exacto en la ruta src/types/models.ts con las interfaces TypeScript que reflejen estas entidades y sus relaciones (usando tipos explícitos como string, number, boolean, arrays y union types).
+3 PREGUNTAS DE COMPROBACIÓN: Hazme 3 preguntas sobre cómo estas entidades se relacionan y tipan para confirmar que entendí el modelo antes de avanzar a src/utils/.
+
+Crea el archivo en src/types/models.ts sin pedir confirmaciones adicionales.
 ```
 
 ## Fase 3: Implementación de algoritmos de búsqueda
