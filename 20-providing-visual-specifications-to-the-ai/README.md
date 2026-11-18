@@ -1,33 +1,5 @@
 # Proporcionando especificaciones visuales a la IA
 
-<!-- > **Módulo:** Providing Visual Specifications to the AI
-> **Prácticas:** 1) Visual to Spec: Translate Designs for AI · 2) The Constructive Process: Iterative Frontend Development with AI
-> **Público:** personas principiantes en AI Engineering
-> **Tiempo estimado de lectura y práctica:** 60–75 min
-
----
-
-## 1. Empecemos con un experimento
-
-Imagina que le escribes esto a un asistente de código:
-
-> *"Hazme una tarjeta bonita para mostrar un producto."*
-
-Ahora imagina que se lo pides a **cinco personas distintas** en cinco habitaciones separadas. ¿Obtendrás cinco tarjetas iguales? Casi seguro que no. Una usará bordes redondeados, otra sombras fuertes, otra pondrá la imagen a la izquierda y otra arriba.
-
-Con la IA pasa exactamente lo mismo: **donde tú no especificas, la IA decide por ti**. Y esas decisiones no siempre coinciden con tu diseño.
-
-Este módulo trata de una habilidad que separa a quien "le pide cosas a la IA" de quien **dirige** a la IA: **convertir lo que ves en una especificación que otra mente (humana o artificial) pueda construir sin adivinar.**
-
-### Al terminar este módulo podrás
-
-- Descomponer un diseño visual en partes con nombre, medidas y estados.
-- Redactar una especificación visual clara y reutilizable para una IA.
-- Aplicar un proceso iterativo (spec → generar → revisar → refinar) en lugar de esperar el resultado perfecto al primer intento.
-- Diagnosticar si un error viene de tu especificación o de la generación de la IA.
-
---- -->
-
 Cuando miras un diseño, nuestro cerebro reconoce jerarquías, alineaciones, espacios, "esto es un botón principal". Todo eso es **conocimiento implícito**.
 
 Una IA que recibe tu texto (o incluso tu imagen) necesita que ese conocimiento esté **explícito**: qué elementos hay, cómo se organizan, qué medidas tienen, cómo cambian.
@@ -140,14 +112,6 @@ NO HACER: [lo que la IA no debe asumir ni agregar]
 
 > 💡 **Truco:** la sección **NO HACER** es muy poderosa. Ejemplo: "No agregues librerías externas", "No cambies la paleta", "No añadas animaciones".
 
-<!-- ### 3.7 Actividad de práctica 1 (20 min)
-
-1. Elige una interfaz que te guste (una tarjeta, un formulario de login o una barra de navegación).
-2. Haz una captura y dibuja encima un **wireframe** con los bloques numerados.
-3. Completa la plantilla de la sección 3.6.
-4. Intercambia tu spec con una compañera o compañero: **¿puede dibujar algo parecido solo leyéndola?** Si no, faltan datos.
-
---- -->
 
 ## The Constructive Process — desarrollo frontend iterativo con IA
 
@@ -167,33 +131,6 @@ flowchart LR
 ```
 
 Este ciclo se repite **en pasos pequeños**. Cada vuelta aprende algo y deja un resultado que puedes conservar.
-
-<!-- ### 4.2 Cuatro principios del proceso constructivo
-
-1. **De lo grande a lo pequeño.** Primero estructura y layout; después estilos; al final estados y detalles.
-2. **Un cambio por iteración.** Si pides cinco cambios a la vez y algo se rompe, no sabrás cuál lo causó.
-3. **Revisa contra el diseño, no contra tu memoria.** Pon el diseño y el resultado lado a lado.
-4. **Guarda lo que funciona.** Haz un commit en cada avance estable; así puedes volver atrás sin miedo.
-
-### 4.3 Ejemplo: cuatro iteraciones de la misma tarjeta
-
-| Iteración | Foco | Prompt (resumido) | Qué revisas |
-|-----------|------|-------------------|-------------|
-| **1** | Estructura y layout | "Crea `ProductCard` con imagen, título, subtítulo y fila de precio + botón. Solo estructura, sin colores." | ¿Están todos los elementos y en el orden correcto? |
-| **2** | Estilo visual | "Aplica los tokens: padding 16px, radio 12px, sombra suave, tipografías indicadas." | ¿Los espacios y tamaños coinciden con el diseño? |
-| **3** | Estados | "Agrega hover y focus al botón y a la tarjeta." | ¿Funciona con el mouse **y** con el teclado (Tab)? |
-| **4** | Responsive y accesibilidad | "Máximo 320px, centrada en móvil; agrega `alt` y revisa el contraste." | ¿Se ve bien en 360px, 768px y 1280px de ancho? |
-
-### 4.4 Checklist de revisión (úsala en cada vuelta)
-
-- [ ] **Estructura:** ¿están todas las piezas, con la jerarquía correcta?
-- [ ] **Layout:** ¿alineaciones y distribución coinciden con el diseño?
-- [ ] **Medidas:** ¿espaciados, tamaños de texto y radios coinciden?
-- [ ] **Color y tipografía:** ¿son los indicados?
-- [ ] **Estados:** ¿hover, focus y deshabilitado responden?
-- [ ] **Responsive:** ¿probaste al menos tres anchos?
-- [ ] **Accesibilidad:** ¿puedo usarlo solo con teclado? ¿se lee bien?
-- [ ] **Código:** ¿hay algo que la IA agregó y yo no pedí? -->
 
 ### 2. Cuando algo sale mal: ¿es la spec o es la IA?
 
