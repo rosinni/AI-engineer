@@ -45,3 +45,60 @@ main {
 .welcome-card p {
   line-height: 1.65;
 }
+
+.contact-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.contact-card {
+  width: min(680px, 100%);
+  background: var(--surface);
+  border: 1px solid #dfe7f2;
+  border-radius: 16px;
+  padding: clamp(2rem, 6vw, 4rem);
+  box-shadow: 0 12px 35px rgba(23, 32, 51, 0.08);
+}
+
+.contact-card h1 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.contact-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.form-field label {
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font: inherit;
+}
+
+.contact-form button {
+  justify-self: start;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
