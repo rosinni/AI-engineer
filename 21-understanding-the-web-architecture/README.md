@@ -131,20 +131,34 @@ Una cocina profesional funciona porque cada cosa tiene su lugar: los cuchillos j
 
 ```text
 src/
-├── app/            → páginas y rutas (Next.js)
-├── components/     → piezas reutilizables (Button, Card)
-├── features/       → lógica por funcionalidad (cart, auth)
-├── lib/            → utilidades y funciones auxiliares
-└── styles/         → estilos globales
+├── app/                      → rutas, páginas y layouts de Next.js
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── globals.css
+│   ├── contact/
+│   │   └── page.tsx
+│   └── products/
+│       └── page.tsx
+│
+├── components/               → componentes reutilizables
+│   ├── ui/                   → Button, Input, Card
+│   └── layout/               → Navbar, Footer
+│
+├── features/                 → funcionalidades del negocio
+│   ├── products/
+│   └── cart/
+│
+├── hooks/                    → hooks personalizados de React
+│
+├── types/                    → tipos e interfaces de TypeScript
+│
+├── lib/                      → utilidades y configuraciones
+│
+└── services/                 → comunicación con APIs externas
 ```
 
 No es la única estructura válida. Lo importante es que todo el equipo —y tu yo del futuro— pueda predecir dónde está cada cosa.
 
-### Mini-práctica
-
-1. Toma el proyecto de la práctica anterior.
-2. Mueve `ProductCard` a una carpeta `components/`.
-3. Crea una carpeta para una funcionalidad y justifica en una frase por qué pusiste cada archivo donde lo pusiste.
 
 ### Para recordar
 
