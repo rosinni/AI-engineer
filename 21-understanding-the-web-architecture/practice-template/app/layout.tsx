@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import { Navbar } from "../components/layout/Navbar";
 
 export const metadata: Metadata = {
   title: "React & Next.js Mini-Practice",
@@ -9,7 +10,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        
+        <Navbar />
+        {children}
+        </body>
     </html>
   );
 }

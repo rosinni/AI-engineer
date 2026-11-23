@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProductCard } from "../components/ProductCard";
 
 export default function Home() {
   return (
@@ -12,6 +13,11 @@ export default function Home() {
         <Link className="contact-link" href="/contact">
           Contact
         </Link>
+      </section>
+      <section className="product-catalog">
+        <ProductCard name={"Zapatos"} price={100}/>
+        <ProductCard name={"Camisa"} price={50}/>
+        <ProductCard name={"Pantalón"} price={75}/>
       </section>
     </main>
   );
