@@ -4,9 +4,8 @@ Antes de escribir una sola línea de código, los desarrolladores con experienci
 
 En esta práctica aprenderás dos habilidades complementarias: visualizar flujos de trabajo con **Excalidraw** y representar la lógica con **diagramas de flujo estándar**.
 
----
 
-## 1. ¿Por qué dibujar un flujo?
+## ¿Por qué dibujar un flujo?
 
 Un flujo de trabajo describe **qué pasa, en qué orden y quién (o qué) lo hace**. Dibujarlo te permite:
 
@@ -17,9 +16,9 @@ Un flujo de trabajo describe **qué pasa, en qué orden y quién (o qué) lo hac
 
 > Regla práctica: si no puedes dibujar el proceso, probablemente todavía no lo entiendes del todo.
 
----
 
-## 2. Excalidraw: pensar en voz alta con dibujos
+
+## Excalidraw: pensar en voz alta con dibujos
 
 [Excalidraw](https://excalidraw.com) es una pizarra virtual gratuita, abierta y sin registro, con estética de "boceto a mano". Ese estilo informal es una ventaja pedagógica: invita a **explorar sin miedo a que quede perfecto**.
 
@@ -39,9 +38,9 @@ Un flujo de trabajo describe **qué pasa, en qué orden y quién (o qué) lo hac
 3. Avanza de izquierda a derecha o de arriba hacia abajo, sin cruzar flechas.
 4. Itera: mueve, borra y reorganiza. El primer borrador nunca es el definitivo.
 
----
 
-## 3. Diagramas de flujo estándar: un lenguaje común
+
+## Diagramas de flujo estándar: un lenguaje común
 
 Los diagramas de flujo usan símbolos convencionales para que cualquier persona los interprete igual. Conocerlos te da precisión.
 
@@ -67,9 +66,8 @@ flowchart TD
 
 Observa cómo cada **rombo** tiene exactamente dos salidas y cómo el flujo puede **volver atrás** (un bucle) cuando algo falla. Esa es la semilla de un `if` y un `while` en código.
 
----
 
-## 4. De la pizarra al código
+## De la pizarra al código
 
 | En el diagrama | En el código |
 |---|---|
@@ -80,9 +78,9 @@ Observa cómo cada **rombo** tiene exactamente dos salidas y cómo el flujo pued
 
 Si tu diagrama es claro, **traducirlo a código es casi mecánico**.
 
----
 
-## 5. Actividad práctica
+
+## Actividad práctica
 
 **Reto:** elige un proceso cotidiano (pedir un café, reservar una cita, recuperar una contraseña).
 
@@ -97,9 +95,3 @@ Si tu diagrama es claro, **traducirlo a código es casi mecánico**.
 - [ ] Cada decisión tiene todas sus salidas rotuladas.
 - [ ] Cada paso empieza con un verbo.
 - [ ] Alguien más pudo entenderlo sin que yo se lo explicara.
-
----
-
-## Conclusión
-
-Excalidraw te da la **libertad** de explorar ideas; los diagramas de flujo estándar te dan el **rigor** para comunicarlas. Juntos forman un hábito profesional: **pensar visualmente antes de construir**. Cuanto más practiques, más natural será ver la estructura de un problema antes de escribir la primera línea de código.
