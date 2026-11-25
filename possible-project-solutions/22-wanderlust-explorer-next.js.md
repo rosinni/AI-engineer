@@ -140,9 +140,6 @@ Al finalizar:
 **Importante:** en esta etapa solamente estamos especificando el comportamiento esperado del sistema. No estamos construyendo la aplicación.
 ```
 
-
-### 2. Aplicar Visual to Spec y documentar las referencias de diseño
-
 ### 2. Investigar referencias, diseñar las pantallas y aplicar Visual to Spec
 
 **Antes de construir la interfaz:** vamos a definir cómo queremos que se vea Wanderlust Labs. Para ello, investigaremos algunas referencias y utilizaremos Google Stitch para diseñar nuestra propia aplicación.
@@ -154,6 +151,50 @@ Al finalizar:
 3. Identifica qué elementos te gustaría utilizar como inspiración.
 
 Documenta las referencias y tus observaciones en `README.md`, dentro de la sección `## Design References`.
+
+
+#### Prompt sugerido:
+
+```text
+Actúa como un investigador de diseño UX/UI. Analiza las imágenes de referencia que te proporciono [imagen1] , [imagen2], correspondientes a interfaces reales de aplicaciones de viajes o descubrimiento de experiencias.
+
+### Instrucciones
+
+1. Analiza las dos referencias visuales proporcionadas.
+2. Observa especialmente:
+
+- Cómo presentan las experiencias o actividades.
+- Cómo utilizan las imágenes y las tarjetas de contenido.
+- Cómo organizan la búsqueda.
+- Qué filtros ofrecen y cómo se presentan.
+- Cómo distribuyen la información en pantalla.
+3. Identifica qué decisiones de diseño te parecen interesantes y cuáles podrían adaptarse al proyecto que estás desarrollando.
+
+### Documentación
+Registra los resultados directamente en `README.md`, dentro de la sección:
+
+`## Design References`
+
+Para cada referencia incluye:
+
+- **Nombre de la aplicación:** identifica la aplicación si aparece en la imagen.
+- **Descripción:** qué tipo de contenido o experiencias presenta.
+- **Presentación visual:** cómo utiliza las imágenes, tarjetas y distribución del contenido.
+- **Búsqueda y filtros:** cómo están organizados y qué opciones se observan.
+- **Elementos de inspiración:** qué decisiones de diseño podrías adaptar al proyecto y por qué.
+Al finalizar, agrega una breve conclusión con entre 3 y 5 decisiones de diseño que te gustaría aplicar en tu proyecto.
+
+### Restricciones
+
+- Basa tus observaciones en los elementos visibles en las imágenes.
+- No inventes funcionalidades que no puedas observar.
+- Si algún elemento no puede identificarse, indícalo expresamente.
+- No copies la interfaz completa de las referencias.
+- No modifiques código ni comiences a construir la interfaz.
+- No sobrescribas el resto del contenido existente en `README.md`.
+**Resultado esperado:** una sección `Design References` en `README.md` que documente las dos referencias visuales y las decisiones de diseño que servirán como inspiración para diseñar las pantallas del proyecto en Stitch.
+```
+
 
 #### B. Diseñar nuestra aplicación con Google Stitch
 
