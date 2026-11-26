@@ -80,18 +80,114 @@ Si tu diagrama es claro, **traducirlo a código es casi mecánico**.
 
 
 
-## Actividad práctica
-
-**Reto:** elige un proceso cotidiano (pedir un café, reservar una cita, recuperar una contraseña).
-
-1. Escribe el objetivo en una frase.
-2. Dibuja el flujo en Excalidraw con inicio, fin, al menos **una decisión** y **un camino alternativo**.
-3. Revisa: ¿hay algún paso ambiguo? ¿Algún camino sin salida?
-4. Intercambia tu diagrama con un compañero y pídele que lo "ejecute" siguiendo las flechas.
-
-**Autoevaluación rápida:**
-
-- [ ] Mi diagrama tiene un único inicio y al menos un fin.
-- [ ] Cada decisión tiene todas sus salidas rotuladas.
-- [ ] Cada paso empieza con un verbo.
-- [ ] Alguien más pudo entenderlo sin que yo se lo explicara.
+## Y si el diagrama se pudiera ejecutar solo: conoce n8n
+ 
+Hasta ahora tus diagramas son **dibujos**: describen un proceso, pero alguien tiene que hacerlo a mano. ¿Qué pasaría si el propio diagrama pudiera ejecutarse?
+ 
+Eso es lo que permite **n8n** (se pronuncia "n-eight-n"): una plataforma de **automatización de flujos de trabajo** que conecta aplicaciones, servicios, bases de datos y APIs para ejecutar tareas automáticamente.
+ 
+### Un problema cotidiano
+ 
+Imagina que cada vez que un estudiante completa un formulario de inscripción debes:
+ 
+1. Leer sus datos.
+2. Guardarlos en una hoja de cálculo.
+3. Enviarle un correo de confirmación.
+4. Notificar al equipo docente.
+5. Registrar la fecha de inscripción.
+Podrías hacerlo manualmente cada día, o **diseñar un flujo que lo haga por ti**. La idea central es esta:
+ 
+> En lugar de que una persona ejecute una secuencia de tareas, diseñamos un flujo que determina **cuándo** ejecutarlas, **qué información** usar y **qué hacer** con los resultados.
+ 
+Fíjate que ya sabes hacer la mitad del trabajo: es un diagrama de flujo.
+ 
+```mermaid
+flowchart LR
+    A([Formulario recibido]) --> B[Guardar estudiante en hoja de cálculo]
+    B --> C[Enviar correo de confirmación]
+    C --> D[Notificar al equipo docente]
+    D --> E([Fin])
+```
+ 
+### Los tres elementos de un workflow
+ 
+La unidad fundamental de n8n es el **workflow**: una secuencia de operaciones conectadas entre sí. Se compone de tres piezas, y cada una tiene un equivalente directo en lo que ya aprendiste:
+ 
+| Elemento en n8n | Función | Equivalente en tu diagrama |
+|---|---|---|
+| **Trigger** (disparador) | Inicia el flujo cuando ocurre un evento | El óvalo de **inicio** |
+| **Nodes** (nodos) | Ejecutan una operación concreta | Los **rectángulos** y **rombos** |
+| **Connections** (conexiones) | Pasan la información de un nodo al siguiente | Las **flechas** |
+ 
+**Trigger.** Es el sensor de una alarma: detecta que ocurrió algo y activa el proceso. Por ejemplo, recibir un correo, que alguien complete un formulario, que llegue una solicitud HTTP, que sean las 9:00 de cada día o que entre un mensaje de Telegram.
+ 
+**Nodos.** Cada nodo tiene **una responsabilidad concreta**: obtener datos de una API, enviar un correo, consultar una base de datos, transformar información, evaluar una condición, ejecutar código JavaScript o consultar un modelo de inteligencia artificial.
+ 
+**Conexiones.** Cada nodo recibe información, realiza una operación y entrega un resultado que usará el siguiente.
+ 
+### ¿Qué viaja por las flechas? Datos en formato JSON
+ 
+Entender cómo se mueve la información entre nodos es tan importante como saber conectarlos. n8n transporta los datos en formato **JSON**. Por ejemplo, el formulario del estudiante llega así:
+ 
+```json
+{
+  "nombre": "Ana",
+  "email": "ana@email.com",
+  "curso": "Data Analytics",
+  "edad": 28
+}
+```
+ 
+Cada nodo posterior puede usar esos campos:
+ 
+- El nodo de hoja de cálculo usa `nombre` para guardar el nombre.
+- El nodo de correo usa `email` para saber a quién escribir.
+- Un nodo **IF** (el rombo de tu diagrama) puede evaluar si `edad` es mayor o igual a 18.
+Para acceder a esos datos se usan **expresiones**:
+ 
+```
+{{ $json.nombre }}
+{{ $json.email }}
+```
+ 
+`$json` significa "el JSON del elemento actual". También puedes leer datos de un nodo anterior por su nombre:
+ 
+```
+{{ $('Formulario').item.json.email }}
+```
+ 
+| Concepto | Qué significa |
+|---|---|
+| JSON | Formato de representación de datos |
+| `$json` | Acceso al JSON del elemento actual |
+| Expression | Expresión que calcula un valor dinámico |
+| Node output | Resultado que produce un nodo |
+| Item | Unidad de información que circula por el workflow |
+ 
+### ¿Qué se puede automatizar?
+ 
+- **Procesos:** formularios, correos, hojas de cálculo, CRM y notificaciones.
+- **APIs:** consultar servicios externos y conectar aplicaciones sin integración nativa.
+- **Inteligencia artificial:** clasificar textos, resumir documentos, extraer información y construir agentes.
+- **Datos:** consultar bases de datos, transformar registros y generar reportes.
+- **Sistemas:** crear webhooks, coordinar servicios y ejecutar procesos condicionales.
+### ¿Por qué n8n y no otra herramienta?
+ 
+Existen alternativas como Zapier (muy accesible para quien no programa) y Make (con un editor visual de escenarios). Una comparación conceptual:
+ 
+| Característica | n8n | Zapier | Make |
+|---|---|---|---|
+| Editor visual | Sí | Sí | Sí |
+| Código personalizado | Sí | Según la función | Según la función |
+| Autoalojamiento | Sí | No | No |
+| Control técnico | Alto | Más limitado | Intermedio |
+| APIs y webhooks | Sí | Sí | Sí |
+ 
+Su gran ventaja para aprender: puedes **empezar sin programar** y, poco a poco, incorporar JavaScript, JSON, HTTP, autenticación y bases de datos **dentro del mismo entorno**.
+ 
+### ¿Dónde se ejecuta?
+ 
+| Modalidad | Qué es | Cuándo conviene |
+|---|---|---|
+| **n8n Cloud** | n8n aloja y mantiene la infraestructura; entras desde el navegador y creas tu cuenta | Para empezar rápido, sin administrar servidores |
+| **Self-hosted** | Lo instalas en una infraestructura que administras tú: tu computadora, un VPS o un entorno cloud | Cuando necesitas más control técnico |
